@@ -41,6 +41,6 @@ public class SlackCommandController {
                                 @RequestParam("command") String command,
                                 @RequestParam("text") String text,
                                 @RequestParam("response_url") String responseUrl) {
-        return userService.logout(userId, userName, text, responseUrl);
+        return userService.logout(userId, userName, responseUrl);
     }
 }

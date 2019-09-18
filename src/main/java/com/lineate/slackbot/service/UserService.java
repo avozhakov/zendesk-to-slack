@@ -33,11 +33,15 @@ public class UserService {
         String login = credentials.split(" ")[0];
         String password = credentials.split(" ")[1];
 
-        User user = new User(userId, login, password, responseUrl);
+        User user = new User(userId, userName, login, password, responseUrl);
 
-        repository.save(user);
+        if (repository.findBySlackId(userId) == null) {
+            repository.save(user);
+            response.setText("User " + user.getName() + " has been logged in");
+        } else {
+            response.setText("User " + user.getName() + " is already logged in");
+        }
 
-        response.setText("User " + user + " has been created");
         response.setResponseType("in_channel");
 
 //        Attachment attachment = new Attachment();
@@ -49,13 +53,17 @@ public class UserService {
         return response;
     }
 
-    public SlackResponse logout(String userId, String userName, String credentials, String responseUrl) {
+    public SlackResponse logout(String userId, String userName, String responseUrl) {
         User user = repository.findBySlackId(userId);
-        repository.delete(user);
 
         SlackResponse response = new SlackResponse();
 
-        response.setText("User " + user + " has been deleted");
+        if (user != null) {
+            repository.delete(user);
+            response.setText("User " + user.getName() + " has been logged out");
+        } else {
+            response.setText("User " + userName + " is not logged in");
+        }
         response.setResponseType("in_channel");
 
         return response;

@@ -17,20 +17,23 @@ public class User {
 
     @Column(name = "slackid")
     private String slackId;
+    @Column(name = "name")
+    private String name;
     @Column(name = "login")
     private String login;
-    @Column(name = "token")
-    private String token;
+    @Column(name = "password")
+    private String password;
     @Column(name = "responseurl")
     private String responseUrl;
 
     public User() {
     }
 
-    public User(String slackId, String login, String token, String responseUrl) {
+    public User(String slackId, String name, String login, String password, String responseUrl) {
         this.slackId = slackId;
+        this.name = name;
         this.login = login;
-        this.token = token;
+        this.password = password;
         this.responseUrl = responseUrl;
     }
 
@@ -40,6 +43,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getSlackId() {
@@ -58,12 +69,12 @@ public class User {
         this.login = login;
     }
 
-    public String getToken() {
-        return token;
+    public String getPassword() {
+        return password;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getResponseUrl() {
@@ -81,13 +92,13 @@ public class User {
         User user = (User) o;
         return slackId.equals(user.slackId) &&
                 login.equals(user.login) &&
-                token.equals(user.token) &&
+                password.equals(user.password) &&
                 responseUrl.equals(user.responseUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(slackId, login, token, responseUrl);
+        return Objects.hash(slackId, login, password, responseUrl);
     }
 
     @Override
@@ -95,7 +106,7 @@ public class User {
         return "User{" +
                 "slackId='" + slackId + '\'' +
                 ", login='" + login + '\'' +
-                ", token='" + token + '\'' +
+                ", password='" + password + '\'' +
                 ", responseUrl='" + responseUrl + '\'' +
                 '}';
     }
