@@ -74,7 +74,7 @@ public class ZendeskObserver {
 
             if (optionalRequest.isPresent()) {
                 Request localRequest = optionalRequest.get();
-                if (request.getStatus().equals(localRequest.getStatus())) { // ! ++++++++++++++++++++++++++++++++++++
+                if (!request.getStatus().equals(localRequest.getStatus())) {
                     changedTickets.add(request);
                 }
             } else {

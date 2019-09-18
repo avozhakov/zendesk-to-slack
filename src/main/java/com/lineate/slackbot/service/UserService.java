@@ -3,15 +3,18 @@ package com.lineate.slackbot.service;
 import com.lineate.slackbot.entity.User;
 import com.lineate.slackbot.model.SlackResponse;
 import com.lineate.slackbot.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    private final UserRepository repository;
+
+    @Autowired
+    private UserRepository repository;
 
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    public UserService() {
     }
 
     public SlackResponse login(String userId,
@@ -30,9 +33,9 @@ public class UserService {
         String login = credentials.split(" ")[0];
         String password = credentials.split(" ")[1];
 
-        User user = new User(userId, userName, login, password, responseUrl);
+        User user = new User(userId, login, password, responseUrl);
 
-        repository.createUser(user);
+        repository.save(user);
 
         response.setText("User " + user + " has been created");
         response.setResponseType("in_channel");
@@ -47,8 +50,8 @@ public class UserService {
     }
 
     public SlackResponse logout(String userId, String userName, String credentials, String responseUrl) {
-        User user = repository.getUserById(userId);
-        repository.deleteUser(user);
+        User user = repository.findBySlackId(userId);
+        repository.delete(user);
 
         SlackResponse response = new SlackResponse();
 
@@ -59,6 +62,8 @@ public class UserService {
     }
 
     public List<User> getUsers() {
-        return repository.getUsers();
+        List<User> users = new ArrayList<>();
+        repository.findAll().forEach(users::add);
+        return users;
     }
 }

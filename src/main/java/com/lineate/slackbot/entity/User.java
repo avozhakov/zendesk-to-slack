@@ -1,21 +1,36 @@
 package com.lineate.slackbot.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
-    private String slackUserId;
-    private String name;
+    @Column(name = "slackid")
+    private String slackId;
+    @Column(name = "login")
     private String login;
-    private String password;
+    @Column(name = "token")
+    private String token;
+    @Column(name = "responseurl")
     private String responseUrl;
 
-    public User(String slackUserId, String name, String login, String password, String responseUrl) {
-        this.slackUserId = slackUserId;
-        this.name = name;
+    public User() {
+    }
+
+    public User(String slackId, String login, String token, String responseUrl) {
+        this.slackId = slackId;
         this.login = login;
-        this.password = password;
+        this.token = token;
         this.responseUrl = responseUrl;
     }
 
@@ -27,20 +42,12 @@ public class User {
         this.id = id;
     }
 
-    public String getSlackUserId() {
-        return slackUserId;
+    public String getSlackId() {
+        return slackId;
     }
 
-    public void setSlackUserId(String slackUserId) {
-        this.slackUserId = slackUserId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setSlackId(String slackId) {
+        this.slackId = slackId;
     }
 
     public String getLogin() {
@@ -51,12 +58,12 @@ public class User {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getToken() {
+        return token;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getResponseUrl() {
@@ -72,25 +79,23 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return slackUserId.equals(user.slackUserId) &&
-                name.equals(user.name) &&
+        return slackId.equals(user.slackId) &&
                 login.equals(user.login) &&
-                password.equals(user.password) &&
+                token.equals(user.token) &&
                 responseUrl.equals(user.responseUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(slackUserId, name, login, password, responseUrl);
+        return Objects.hash(slackId, login, token, responseUrl);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "slackUserId='" + slackUserId + '\'' +
-                ", name='" + name + '\'' +
+                "slackId='" + slackId + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
                 ", responseUrl='" + responseUrl + '\'' +
                 '}';
     }

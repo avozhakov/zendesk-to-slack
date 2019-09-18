@@ -17,7 +17,7 @@ public class ZendeskService {
     public List<Request> getUserRequests(User user) {
         Zendesk zendesk = new Zendesk.Builder(url)
                 .setUsername(user.getLogin())
-                .setPassword(user.getPassword())
+                .setPassword(user.getToken())
                 // or .setToken("...")
                 .build();
 

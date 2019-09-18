@@ -1,6 +1,5 @@
 package com.lineate.slackbot.configuration;
 
-import com.lineate.slackbot.repository.UserRepository;
 import com.lineate.slackbot.service.UserService;
 import com.lineate.slackbot.service.ZendeskService;
 import com.lineate.slackbot.util.SlackMessenger;
@@ -30,6 +29,6 @@ public class BeansConfiguration {
 
     @Bean
     public UserService userService() {
-        return new UserService(new UserRepository());
+        return new UserService();
     }
 }
