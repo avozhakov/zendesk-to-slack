@@ -13,19 +13,23 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private ZendeskService zendeskService;
+
 
     public UserService() {
     }
 
     public SlackResponse login(String userId,
+                               String channelId,
                                String userName,
                                String credentials,
                                String responseUrl) {
 
         SlackResponse response = new SlackResponse();
 
-        if (credentials.isEmpty()) {
-            response.setText("It hasn't got login and password");
+        if (credentials.isEmpty() || credentials.split(" ").length < 2) {
+            response.setText("It hasn't got login or password");
             response.setResponseType("in_channel");
             return response;
         }
@@ -33,7 +37,13 @@ public class UserService {
         String login = credentials.split(" ")[0];
         String password = credentials.split(" ")[1];
 
-        User user = new User(userId, userName, login, password, responseUrl);
+        User user = new User(userId, channelId, userName, login, password, responseUrl);
+
+        if (!zendeskService.checkUserCredentials(user)) {
+            response.setText("Wrong login or password");
+            response.setResponseType("in_channel");
+            return response;
+        }
 
         if (repository.findBySlackId(userId) == null) {
             repository.save(user);

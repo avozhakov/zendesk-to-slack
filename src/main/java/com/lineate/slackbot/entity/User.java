@@ -17,6 +17,8 @@ public class User {
 
     @Column(name = "slackid")
     private String slackId;
+    @Column(name = "channelid")
+    private String channelId;
     @Column(name = "name")
     private String name;
     @Column(name = "login")
@@ -29,8 +31,9 @@ public class User {
     public User() {
     }
 
-    public User(String slackId, String name, String login, String password, String responseUrl) {
+    public User(String slackId, String channelId, String name, String login, String password, String responseUrl) {
         this.slackId = slackId;
+        this.channelId = channelId;
         this.name = name;
         this.login = login;
         this.password = password;
@@ -43,6 +46,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(String channelId) {
+        this.channelId = channelId;
     }
 
     public String getName() {

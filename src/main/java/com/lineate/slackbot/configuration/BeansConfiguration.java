@@ -23,8 +23,8 @@ public class BeansConfiguration {
     }
 
     @Bean
-    public SlackMessenger slackMessenger(@Value("${slack.web.hook.url}") String webHookUrl) {
-        return new SlackMessenger(webHookUrl);
+    public SlackMessenger slackMessenger() {
+        return new SlackMessenger();
     }
 
     @Bean

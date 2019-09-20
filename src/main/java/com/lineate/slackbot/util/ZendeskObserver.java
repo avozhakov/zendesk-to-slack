@@ -45,7 +45,7 @@ public class ZendeskObserver {
                     if (!changedRequests.isEmpty()) {
                         changedRequests.forEach(request -> {
                             LOGGER.info("Has changed ticket '{}', the new status is - {}", request.getSubject(), request.getStatus());
-                            slackMessenger.sendMessage(createMessage(request));
+                            slackMessenger.sendMessage(user, createMessage(request));
                         });
                         requests.put(user, requestsForComparing);
                     }

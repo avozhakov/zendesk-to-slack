@@ -46,6 +46,20 @@
             <artifactId>zendesk-java-client</artifactId>
             <version>0.9.0</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.hubspot.slack/slack-java-client -->
+        <dependency>
+            <groupId>com.hubspot.slack</groupId>
+            <artifactId>slack-java-client</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.hubspot.slack/slack-base -->
+        <dependency>
+            <groupId>com.hubspot.slack</groupId>
+            <artifactId>slack-base</artifactId>
+            <version>1.3</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
