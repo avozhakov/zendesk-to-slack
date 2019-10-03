@@ -34,7 +34,7 @@ public class ZendeskObserver {
     }
 
     @EventListener(ContextRefreshedEvent.class)
-    public void run() {
+    public void runObserver() {
         new Thread(() -> {
             while (true) {
                 userService.getUsers().forEach(user -> {
@@ -44,7 +44,8 @@ public class ZendeskObserver {
 
                     if (!changedRequests.isEmpty()) {
                         changedRequests.forEach(request -> {
-                            LOGGER.info("Has changed ticket '{}', the new status is - {}", request.getSubject(), request.getStatus());
+                            LOGGER.info("Status of ticket '{}' has been changed, the new status is - {}",
+                                    request.getSubject(), request.getStatus());
                             slackMessenger.sendMessage(user, createMessage(request));
                         });
                         requests.put(user, requestsForComparing);
