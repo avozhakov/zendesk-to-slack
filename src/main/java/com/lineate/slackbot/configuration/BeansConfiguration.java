@@ -31,4 +31,9 @@ public class BeansConfiguration {
     public UserService userService() {
         return new UserService();
     }
+
+    @Bean
+    BasicRuntimeConfig basicRuntimeConfig(@Value("${token.supplier}") String token) {
+        return new BasicRuntimeConfig(token);
+    }
 }
